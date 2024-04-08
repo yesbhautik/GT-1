@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // TODO: Separate into multiple contexts, keeping simple for now
 
 "use client"
@@ -7,6 +8,7 @@ import { getProfileByUserId } from "@/db/profile"
 import { getWorkspaceImageFromStorage } from "@/db/storage/workspace-images"
 import { getWorkspacesByUserId } from "@/db/workspaces"
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
+import { getConnectionWorkspacesByWorkspaceId } from "@/db/connections"
 import {
   fetchHostedModels,
   fetchOllamaModels,
@@ -49,6 +51,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [prompts, setPrompts] = useState<Tables<"prompts">[]>([])
   const [tools, setTools] = useState<Tables<"tools">[]>([])
   const [workspaces, setWorkspaces] = useState<Tables<"workspaces">[]>([])
+  const [connections, setConnections] = useState<Tables<"connections">[]>([])
 
   // MODELS STORE
   const [envKeyMap, setEnvKeyMap] = useState<Record<string, VALID_ENV_KEYS>>({})
@@ -66,6 +69,10 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   // PRESET STORE
   const [selectedPreset, setSelectedPreset] =
     useState<Tables<"presets"> | null>(null)
+
+  // CONNECTIONS STORE
+  const [selectedConnection, setSelectedConnection] =
+    useState<Tables<"connections"> | null>(null)
 
   // ASSISTANT STORE
   const [selectedAssistant, setSelectedAssistant] =
@@ -115,7 +122,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [newMessageImages, setNewMessageImages] = useState<MessageImage[]>([])
   const [showFilesDisplay, setShowFilesDisplay] = useState<boolean>(false)
 
-  // RETIEVAL STORE
+  // RETRIEVAL STORE
   const [useRetrieval, setUseRetrieval] = useState<boolean>(true)
   const [sourceCount, setSourceCount] = useState<number>(4)
 
@@ -225,6 +232,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         setTools,
         workspaces,
         setWorkspaces,
+        connections,
+        setConnections,
 
         // MODELS STORE
         envKeyMap,
@@ -245,6 +254,10 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         // PRESET STORE
         selectedPreset,
         setSelectedPreset,
+
+        // CONNECTION STORE
+        selectedConnection,
+        setSelectedConnection,
 
         // ASSISTANT STORE
         selectedAssistant,

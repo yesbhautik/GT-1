@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 import { ContentType } from "@/types"
 import { FC } from "react"
 import { TabsTrigger } from "../ui/tabs"
@@ -21,7 +22,7 @@ export const SidebarSwitchItem: FC<SidebarSwitchItemProps> = ({
       }
       trigger={
         <TabsTrigger
-          className="hover:opacity-50"
+          className="hover:bg-base-100 hover:text-base-content rounded-lg"
           value={contentType}
           onClick={() => onContentTypeChange(contentType as ContentType)}
         >

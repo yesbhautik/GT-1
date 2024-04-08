@@ -1,21 +1,26 @@
+/* eslint-disable react/jsx-no-undef */
 import { ContentType } from "@/types"
 import {
   IconAdjustmentsHorizontal,
-  IconBolt,
-  IconBooks,
+  IconTool,
+  IconFolders,
   IconFile,
-  IconMessage,
+  IconMessages,
   IconPencil,
   IconRobotFace,
-  IconSparkles
+  IconSparkles,
+  IconSwitchHorizontal
 } from "@tabler/icons-react"
 import { FC } from "react"
 import { TabsList } from "../ui/tabs"
 import { WithTooltip } from "../ui/with-tooltip"
-import { ProfileSettings } from "../utility/profile-settings"
+import { ProfileSettings } from "@/components/utility/profile-settings"
 import { SidebarSwitchItem } from "./sidebar-switch-item"
+import Account from "@/components/utility/billing"
+import logo from "@/public/icon-192x192.png"
+import { ChatbotUISVG } from "../icons/chatbotui-svg"
 
-export const SIDEBAR_ICON_SIZE = 28
+export const SIDEBAR_ICON_SIZE = 20
 
 interface SidebarSwitcherProps {
   onContentTypeChange: (contentType: ContentType) => void
@@ -25,10 +30,16 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
   onContentTypeChange
 }) => {
   return (
-    <div className="flex flex-col justify-between border-r-2 pb-5">
-      <TabsList className="bg-background grid h-[440px] grid-rows-7">
+    <div className="border-base-100 bg-base-300 flex flex-col justify-between border-r px-0 pb-5">
+      <TabsList className="bg-background grid h-[300px] grid-rows-10">
         <SidebarSwitchItem
-          icon={<IconMessage size={SIDEBAR_ICON_SIZE} />}
+          icon={<ChatbotUISVG theme="dark" scale={0.09} />} // Adjust theme and scale as needed
+          contentType="chats"
+          onContentTypeChange={onContentTypeChange}
+        />
+
+        <SidebarSwitchItem
+          icon={<IconMessages size={SIDEBAR_ICON_SIZE} />}
           contentType="chats"
           onContentTypeChange={onContentTypeChange}
         />
@@ -58,7 +69,7 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
 
         <SidebarSwitchItem
-          icon={<IconBooks size={SIDEBAR_ICON_SIZE} />}
+          icon={<IconFolders size={SIDEBAR_ICON_SIZE} />}
           contentType="collections"
           onContentTypeChange={onContentTypeChange}
         />
@@ -70,18 +81,26 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
 
         <SidebarSwitchItem
-          icon={<IconBolt size={SIDEBAR_ICON_SIZE} />}
+          icon={<IconSwitchHorizontal size={SIDEBAR_ICON_SIZE} />}
+          contentType="connections"
+          onContentTypeChange={onContentTypeChange}
+        />
+
+        <SidebarSwitchItem
+          icon={<IconTool size={SIDEBAR_ICON_SIZE} />}
           contentType="tools"
           onContentTypeChange={onContentTypeChange}
         />
       </TabsList>
 
-      <div className="flex flex-col items-center space-y-4">
+      <div className="grid h-[75px] grid-rows-2">
         {/* TODO */}
         {/* <WithTooltip display={<div>Import</div>} trigger={<Import />} /> */}
 
         {/* TODO */}
         {/* <Alerts /> */}
+
+        <WithTooltip display={<div>Billing</div>} trigger={<Account />} />
 
         <WithTooltip
           display={<div>Profile Settings</div>}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ChatbotUIContext } from "@/context/context"
 import {
   type UIEventHandler,
@@ -26,7 +27,7 @@ export const useScroll = () => {
     if (!isGenerating && userScrolled) {
       setUserScrolled(false)
     }
-  }, [isGenerating])
+  }, [isGenerating, userScrolled])
 
   useEffect(() => {
     if (isGenerating && !userScrolled) {

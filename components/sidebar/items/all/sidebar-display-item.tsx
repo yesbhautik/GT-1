@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 import { ChatbotUIContext } from "@/context/context"
 import { createChat } from "@/db/chats"
 import { cn } from "@/lib/utils"
@@ -63,7 +64,8 @@ export const SidebarItem: FC<SidebarItemProps> = ({
       return router.push(`/${selectedWorkspace.id}/chat/${createdChat.id}`)
     },
     tools: async (item: any) => {},
-    models: async (item: any) => {}
+    models: async (item: any) => {},
+    connections: async (item: any) => {}
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -94,7 +96,7 @@ export const SidebarItem: FC<SidebarItemProps> = ({
       <div
         ref={itemRef}
         className={cn(
-          "hover:bg-accent flex w-full cursor-pointer items-center rounded p-2 hover:opacity-50 focus:outline-none"
+          "hover:bg-base-100 hover:text-secondar-content focus:bg-base-100 flex w-full cursor-pointer items-center rounded p-2 hover:bg-opacity-70 hover:opacity-70 focus:outline-none"
         )}
         tabIndex={0}
         onKeyDown={handleKeyDown}

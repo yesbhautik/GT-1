@@ -37,17 +37,25 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  loading?: boolean // New prop for loading state
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, loading, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          loading && "pointer-events-none opacity-50" // Apply loading styles
+        )}
         ref={ref}
+        disabled={loading ? true : props.disabled} // Disable button when loading
         {...props}
-      />
+      >
+        {loading ? "Loading..." : props.children}{" "}
+        {/* Display loading indicator if loading is true */}
+      </Comp>
     )
   }
 )
